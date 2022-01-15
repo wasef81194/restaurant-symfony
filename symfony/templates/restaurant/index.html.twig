@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Restaurants{% endblock %}
+
+{% block body %}
+{% include 'layout/navbar.html.twig' %}
+    <h1>Restaurants</h1>
+        <div class=" mw-76" style="margin:auto;margin-top:50px;">
+        {% for restaurant in restaurants %}
+                <div class="card" style="width: 25rem;">
+                    <img class="card-img-top" src="https://cdn.discordapp.com/attachments/929056453556322424/929056661191139378/resteau.jpg" alt="Card image cap">
+                    <div class="card-body">   
+                    
+                        <h5 class="card-title">{{ restaurant.nom }}</h5> 
+                        <p class="card-text"><b>Adresse :</b> {{ restaurant.adresse }}</p>   
+                        <p class="card-text"><b> Téléphone :</b>{{ restaurant.telephone }}</p>  
+                        <div class="card-buttons">
+                        <a href="{{ path('restaurant_show', {'id': restaurant.id}) }}" class="btn btn-success right"><img src="{{ asset('/images/icon-show.png') }}" width="20"/></a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            {% for restauadmin in app.user.restaurants %}
+                                {% if restauadmin.id == restaurant.id %}
+                                    <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}" class="btn btn-primary left"><img src="{{ asset('/images/icon-edit.png') }}" width="20"/></a>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                         
+                        </div>
+                    </div>
+                </div>
+        {% else %}
+            <p>Pas de restaurant pour le moment...</p>
+        {% endfor %}
+       
+        <br> <br>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('restaurant_new') }}"  class="btn btn-dark right" >Ajouter un restaurant</a>
+            </div>
+        {% endif %}
+{% include 'layout/footer.html.twig' %}
+{% endblock %}

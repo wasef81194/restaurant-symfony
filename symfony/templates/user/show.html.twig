@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateur{% endblock %}
+
+{% block body %}
+{% include 'layout/navbar.html.twig' %}
+    <h1>Profil</h1>
+<div class="mw-32" style="margin:auto;margin-top:50px;">
+            <div class="card" style="width: 30rem;">
+                <img class="card-img-top" src="https://cdn.discordapp.com/attachments/929056453556322424/931620807984156682/guest.png" alt="Card image cap">
+                    <div class="card-body">   
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <h5 class="card-title right">Restaurateur</h5>
+                        {% else %}
+                            <h5 class="card-title right">Utilisateur</h5>
+                        {% endif %}
+                        <br>
+                        <p class="card-text"><b>Nom :</b> {{ user.nom }}</p>
+                        <p class="card-text"><b>Prénom :</b> {{ user.prenom }}</p>
+                        <p class="card-text"><b>Email :</b> {{ user.email }}</p>   
+                        <div class="card-buttons">
+                            {{ include('user/_delete_form.html.twig') }}
+                            <a href="{{ path('user_edit', {'id': user.id}) }}" class="btn btn-primary"><img src="{{ asset('/images/icon-edit.png') }}"/></a>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <h1>Vos restaurants</h1>
+        <div class=" mw-76" style="margin:auto;margin-top:50px;">
+        {% for restaurant in restaurants %}
+            <div class="card" style="width: 25rem;">
+                <img class="card-img-top" src="https://cdn.discordapp.com/attachments/929056453556322424/929056661191139378/resteau.jpg" alt="Card image cap">
+                    <div class="card-body">   
+                        <h5 class="card-title">{{ restaurant.nom }}</h5> 
+                        <p class="card-text"><b>Adresse :</b> {{ restaurant.adresse }}</p>   
+                        <p class="card-text"><b> Téléphone :</b> {{ restaurant.telephone }}</p>  
+                        <div class="card-buttons">
+                            <a href="{{ path('restaurant_show', {'id': restaurant.id}) }}" class="btn btn-success right"><img src="{{ asset('/images/icon-show.png') }}" width="20"/></a>
+                            <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}" class="btn btn-primary left"><img src="{{ asset('/images/icon-edit.png') }}" width="20"/></a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+            <p>Aucun restaurant vous à été attribuée...</p>
+        {% endfor %}
+        </div>
+    {% endif %}
+    <h1>Historique des commades</h1>
+    <div class=" mw-76" style="margin:auto;margin-top:50px;">
+    {% for commande in commandes %}
+    <div class="card" style="width: 25rem;">
+       {# <img class="card-img-top" src="https://cdn.discordapp.com/attachments/929056453556322424/929146660452433930/376a0abf5f88.jpg" alt="Card image cap">#}
+        <div class="card-body">     
+        <h5 class="card-title">{{commande.restaurant.nom}}</h5> 
+        <br> 
+        <p class="card-text"><b>Numéro de commande : </b>{{commande.numero}}</p>
+        <p class="card-text"><b>Produits :</b></p>
+        <ul>
+            {% for ligne in commande.ligneDeCommandes %}
+            <li class="card-text">{{ligne.produit.nom}} x{{ligne.quantite}} {{ligne.produit.prix}}€ </li>
+            {% endfor %}
+        </ul>
+        <p class="card-text"><b>Prix Total : </b>{{commande.prixtotal}}€</p>
+          </div>     
+    </div>
+    {% else %}
+        <p>Aucune commande à été passé ...</p>
+    {% endfor %}
+   
+    {% include 'layout/footer.html.twig' %}
+{% endblock %}

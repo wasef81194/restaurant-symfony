@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau restaurant{% endblock %}
+
+{% block body %}
+{% include 'layout/navbar.html.twig' %}
+<div class="card w-50 all-center">
+    <div class="card-body">
+        <h1 class="card-title" style="margin:10px">Nouveau restaurant</h1>
+        {{ include('restaurant/_form.html.twig') }}
+        <a href="{{ path('restaurant_index') }}" class="btn btn-warning right">Annuler</a>
+        </br> </br>
+    </div>
+</div>
+{% endblock %}

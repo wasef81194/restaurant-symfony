@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New User{% endblock %}
+
+{% block body %}
+{% include 'layout/navbar.html.twig' %}
+    <div class="card w-50 all-center">
+        <div class="card-body">  
+            <h1 class="card-title" style="margin:10px">Inscription</h1> 
+            {{ include('user/_form.html.twig') }}
+        <p>Vous avez déja un compte ? connectez vous <a href="{{ path('app_login') }}">ici</a></p>
+        </div>
+    </div>
+{% endblock %}

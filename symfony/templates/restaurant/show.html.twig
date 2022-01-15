@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Restaurant
+
+{% endblock %}
+
+{% block body %}
+{% include 'layout/navbar.html.twig' %}
+    <h1>{{ restaurant.nom }}</h1>
+        <div class="row g-0 bg-light position-relative">
+        <div class="col-md-6 mb-md-0 p-md-4">
+          <img src="https://cdn.discordapp.com/attachments/929056453556322424/929102534717612033/Hotel-Eden_-Il-Giardino-Ristorante-Bar_16x9-1-1920x840.jpg" class="w-100">
+        </div>
+        <div class="col-md-6 p-4 ps-md-0">
+          <h5 class="mt-3" >{{ restaurant.nom }}</h5>
+          <br>
+          <p><b>Adresse :</b> {{ restaurant.adresse }}</p>
+          <p><b> Téléphone :</b> {{ restaurant.telephone }}</p>
+          <p><b> Horraire :</b> 8h à 19h</p>
+          <p><b>Description : </b>Ce restaurant c'est la cuisine de toutes les gourmandises, alliant jus pressés minute de fruits et légumes & cocktails maison, recettes savoureuses et salades vitaminées, assiettes à composer, desserts très très gourmands…</p>
+        {% for restauadmin in app.user.restaurants %}
+            {% if restauadmin.id == restaurant.id %}
+                <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}  " class="btn btn-primary "><img src="{{ asset('/images/icon-edit.png') }}" /></a>        
+                {{ include('restaurant/_delete_form.html.twig') }}
+            {% endif %}
+        {% endfor %}  
+       
+        </div>
+      </div>
+    
+
+
+
+<h1>Produit disponible</h1>
+    <div class=" mw-76" style="margin:auto;margin-top:50px;">
+        {% for produit in produits %}
+        <div class="card" style="width: 25rem;">
+            <img class="card-img-top" src="https://cdn.discordapp.com/attachments/929056453556322424/929146660452433930/376a0abf5f88.jpg" alt="Card image cap">
+            <div class="card-body">     
+            <h5 class="card-title">{{ produit.nom }} </h5> 
+            <br> 
+            <p class="card-text"><b>Description :</b>  {{ produit.description }}</p>  
+            <p class="card-text"><b>Prix :</b> {{ produit.prix }}€</p> 
+
+                    <a href="{{ path('add_panier', {'id': produit.id,'page':1}) }}" class="btn btn-success right"><img src="{{ asset('/images/icon-panier/add-panier.png') }}"/></a>
+                    {% for restauadmin in app.user.restaurants %}
+                        {% if restauadmin.id == restaurant.id %}
+                            <a href="{{ path('produit_edit', {'id': produit.id}) }}"class="btn btn-primary "><img src="{{ asset('/images/icon-edit.png') }}" /></a>
+                            {{ include('produit/_delete_form.html.twig') }} 
+                        {% endif %}
+                    {% endfor %} 
+                    <br><br>
+              </div>     
+        </div>
+        {% else %}
+            <p>Pas de produit pour le moment...</p>
+        {% endfor %}
+        <br><br>
+        {% if valid == 1 %}
+            <a href="{{ path('panier', {'id': restaurant.id}) }} "class="btn btn-success right">Valider votre commmande >></a>
+        {% endif %}
+        {% for restauadmin in app.user.restaurants %}
+            {% if restauadmin.id == restaurant.id %}
+                 <a href="{{ path('produit_new', {'id': restaurant.id}) }} "class="btn btn-dark">Ajouter un produit</a>
+            {% endif %}
+        {% endfor %} 
+        
+        
+    </div>
+    
+
+    {% include 'layout/footer.html.twig' %}
+{% endblock %}

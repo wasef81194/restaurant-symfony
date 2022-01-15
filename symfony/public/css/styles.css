@@ -1,0 +1,41 @@
+
+h1{
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.left{
+    float: left;
+}
+.right{
+    float: right;
+}
+.card-buttons a {
+    margin-bottom: 15px !important;
+}
+.card{
+    display: inline-block;
+    margin-top: 5px;
+}
+.center{
+    text-align: center;
+}
+.mw-76{
+    max-width:76rem;
+}
+.mw-32{
+    max-width:31rem;
+}
+.inline{
+    display: inline;
+}
+footer{
+    margin-top:50px;
+}
+.all-center{
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -60%);
+}
