@@ -1,0 +1,13 @@
+# volumes
+/logs
+/symfony
+/db
+
+/.env.*
+
+# IDE setting
+## PhpStorm
+.idea
+node_modules
+node_modules
+node_modules
