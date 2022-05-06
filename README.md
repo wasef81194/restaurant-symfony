@@ -1,3 +1,17 @@
+# Restaurant
+
+Projet réaliser en cours qui a pour objectif de gérer les prises de commande et la gestion d'un restaurant. 
+
+# Equipe
+
+Alexandra : Developpeuse full-stack
+
+# Outils utilisés
+
+Symfony
+
+Docker
+=====================================================================================
 docker-symfony
 ==============
 
